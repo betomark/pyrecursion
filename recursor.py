@@ -30,11 +30,21 @@ def generate_function_dictionary(r_t_init, r_s_function, terms_update, terms_ope
 	function_dictionary = {}
 	index = 1
 	next_terms = [update(r_t_init) for update in terms_update]
-	while min(next_terms) > 0:
-		'''
-		dictionary construction
-		'''
-		terms_update = next_step_update(terms_update)
-		next_terms = [update(r_t_init) for update in terms_update]
-		index += 1
+	if terms_operations is []:
+		while min(next_terms) > 0:
+		
+			function_dictionary[index] = "results_dictionary[{}] {}".format(index, r_s_function) 
+			terms_update = next_step_update(terms_update)
+			next_terms = [update(r_t_init) for update in terms_update]
+			index += 1
+	else:
+		while min(next_terms) > 0:
+			to_string = "results_dictionary[{}] ".format(next_terms[0])
+			for i, operation in enumerate(terms_operations):
+				to_string += operation + "results_dictionary[{}] ".format(next_terms[i + 1])
+			function_dictionary[index] = to_string + r_s_function
+			terms_update = next_step_update(terms_update)
+			next_terms = [update(r_t_init) for update in terms_update]
+			index += 1
+	
 	return function_dictionary
