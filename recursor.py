@@ -6,14 +6,12 @@ def recursor(recursion_term_init, base_cases, recursive_step_function):
 	"""
 	This function will return recursive computation output
 	"""
-	results_dictionary = {i + 1: case for i, case in enumerate(base_cases)}
+	results_dictionary = base_cases
 	function_dictionary = generate_function_dictionary(recursion_term_init, recursive_step_function)
+	for function_index in map(lambda x: x+1, range(max(function_dictionary.keys()).reverse()):
+		results_dictionary[] = function_dictionary[function_index]  # TODO: results_dictionary index
+	return results_dictionary[recursion_term_init]
 
-def store_function_result():
-	"""
-	This function will store a computed result of a recursive step
-	"""
-	pass
 
 def purge_not_needed_results():
 	"""
