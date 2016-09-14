@@ -10,6 +10,7 @@ def recursor(recursion_term_init, base_cases, recursive_step_function):
 	function_dictionary = generate_function_dictionary(recursion_term_init, recursive_step_function)
 	for function_index in map(lambda x: x+1, range(max(function_dictionary.keys()).reverse()):
 		results_dictionary[] = function_dictionary[function_index]  # TODO: results_dictionary index
+		del function_dictionary[function_index]
 	return results_dictionary[recursion_term_init]
 
 
