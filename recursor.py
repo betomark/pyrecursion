@@ -19,8 +19,7 @@ class recursion():
 		for result_index in execution_order:
 			exec("self.res{}".format(result_index))
 		return exec("self.res{}".format(recursion_term_init))
-
-    
+	
 	def purge_not_needed_results(self, i):
 		"""
 		This function it's just for clean resutls dictionary which will not be needed for further computations steps
