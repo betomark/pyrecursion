@@ -13,7 +13,7 @@ class recursion():
         for i in base_cases:
             self.last_base_case.append(i)
             exec("self.res{} = {}".format(i, base_cases[i]))
-        execution_order = self.generate_function_dictionary(recursive_step_function)
+        execution_order = self.generate_function_variables(recursive_step_function)
         if self.is_decreasing:
             execution_order.reverse()
         for result_index in execution_order:
@@ -28,7 +28,7 @@ class recursion():
         """
         exec("del self.res{}".format(i))
 
-    def generate_function_dictionary(self, r_s_function):
+    def generate_function_variables(self, r_s_function):
         """
         This function will generate all needed function hierarchy in a dictionay,
         indexed by integer numbers in increasing index depending on their order of computation
@@ -63,7 +63,7 @@ class recursion():
         self.last_base_case = min(self.last_base_case) if self.is_decreasing else max(self.last_base_case)
         while min(next_terms) >= self.last_base_case if self.is_decreasing else max(next_terms) <= self.last_base_case:
             order.append(res_index)
-            exec("self.res{} = r_s_function.format(variable=res_index).format(*next_terms) ".format(res_index))
+            exec("self.res{} = r_s_function.format(variable=res_index).format(*next_terms)".format(res_index))
             terms_update = next_step_update(terms_update, self.r_t_init)
             res_index = min(next_terms) if self.is_decreasing else max(next_terms)
             next_terms = [update(self.r_t_init) for update in terms_update]
