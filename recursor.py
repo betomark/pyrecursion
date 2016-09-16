@@ -39,7 +39,7 @@ class recursion():
 
         def extract_terms_update(r_s_function):
             terms_update = []
-            split = copy(r_s_function).split('[').split(']')
+            split = copy(r_s_function).replace('[', '|').replace(']', '|').split('|')
             next_is_term_updater = False
             for function_slice in split:
                 if next_is_term_updater:
@@ -63,7 +63,7 @@ class recursion():
         self.last_base_case = min(self.last_base_case) if self.is_decreasing else max(self.last_base_case)
         while min(next_terms) >= self.last_base_case if self.is_decreasing else max(next_terms) <= self.last_base_case:
             order.append(res_index)
-            exec("self.res{} = r_s_function.format(variable=res_index).format(*next_terms)".format(res_index))
+            exec "self.res{} = r_s_function.format(variable=res_index).format(*next_terms)".format(res_index) in globals(), locals()
             terms_update = next_step_update(terms_update, self.r_t_init)
             res_index = min(next_terms) if self.is_decreasing else max(next_terms)
             next_terms = [update(self.r_t_init) for update in terms_update]
